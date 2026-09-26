@@ -53,13 +53,16 @@ a { color: inherit; }
   border: 1px solid var(--card-border);
   border-radius: 18px;
   width: 100%;
-  max-width: 480px;
+  max-width: 560px;
   padding: 28px;
   box-shadow: var(--shadow);
 }
 
-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; }
+header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; gap: 12px; }
 h1 { font-size: 1.5rem; font-weight: 700; }
+@media (min-width: 480px) {
+  h1 { white-space: nowrap; } /* fits on one row once the card has room; phones keep the two-line fallback */
+}
 .subtitle { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
 
 button {
