@@ -16,6 +16,7 @@ const LANG_KEY = 'manangi-help-lang';
 const player = new Audio();
 
 let queue = [];
+let totalPrompts = 0; // full corpus size (Hildebrandt glossary + original phrases), fixed once loaded
 let skipped = new Set(); // this visit only: skipping is "not now", not "never"
 let take = null;
 let pending = null;
@@ -83,7 +84,7 @@ $('lang-toggle').addEventListener('click', (e) => {
 function showCurrent() {
   const [prompt] = remaining();
   const left = remaining().length;
-  $('progress').textContent = left ? t().progress(left) : '';
+  $('progress').textContent = left ? t().progress(left, totalPrompts) : '';
   $('prompt-card').classList.toggle('hidden', !prompt);
   $('done-card').classList.toggle('hidden', Boolean(prompt));
   if (!prompt) return;
@@ -173,6 +174,7 @@ async function load() {
       $('progress').textContent = t().cannotRecordBrowser;
       return;
     }
+    totalPrompts = (data.prompts || []).length;
     queue = openPrompts(data.prompts || [], await fetchSubmissions(), data.phrases);
     $('speaker').value = storedSpeaker();
     showCurrent();

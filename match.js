@@ -62,8 +62,9 @@ export function hasRecording(phrases, phrase) {
 /**
  * Add visitor recordings (Supabase rows) to the phrase list as audio-only phrases.
  * - Phrases worded like an existing (original) meaning are skipped: originals are never replaced.
- * - A new phrase goes live with its first recording. Later recordings of it wait for approval;
- *   the newest approved one replaces the first. Rejected rows are ignored.
+ * - For a non-original phrase, the newest non-rejected recording goes live immediately, no approval
+ *   needed (temporary: for now every re-recording auto-applies; only originals still need the owner's
+ *   sign-off, via waitingSubmissions below).
  * Returns a new array; inputs are untouched.
  * @param {Array<object>} phrases
  * @param {Array<{phrase: string, lang: 'en'|'ne', audio_path: string, status: string, created_at: string}>} submissions
@@ -75,7 +76,7 @@ function shownByPhrase(phrases, submissions) {
   for (const s of [...submissions].sort((a, b) => a.created_at.localeCompare(b.created_at))) {
     const key = normalize(s.phrase);
     if (!key || originals.has(key) || s.status === 'rejected') continue;
-    if (!byPhrase.has(key) || s.status === 'approved') byPhrase.set(key, s); // first one, or a newer approved one
+    byPhrase.set(key, s); // ascending order, so the newest non-rejected take always wins
   }
   return byPhrase;
 }
