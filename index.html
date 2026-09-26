@@ -39,10 +39,15 @@
           <div class="actions">
             <button id="rec-btn"></button>
           </div>
-          <div id="consent-slot"></div>
-          <div class="actions hidden" id="review-actions">
-            <button id="save-btn"></button>
-            <button id="discard-btn"></button>
+          <div id="contribute-review" class="hidden">
+            <label class="speaker" id="contribute-spelling-label">How you&rsquo;d spell it (optional)
+              <input id="contribute-spelling" maxlength="200" autocomplete="off" />
+            </label>
+            <div id="consent-slot"></div>
+            <div class="actions" id="review-actions">
+              <button id="save-btn"></button>
+              <button id="discard-btn"></button>
+            </div>
           </div>
           <p id="contribute-msg" class="hint"></p>
         </div>

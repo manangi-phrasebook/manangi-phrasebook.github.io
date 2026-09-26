@@ -48,6 +48,8 @@ function applyLabels() {
   $('not-yet').textContent = t().notYet;
   $('closest').textContent = t().closest;
   $('re-record-btn').textContent = t().reRecordBtn;
+  $('contribute-spelling-label').firstChild.textContent = t().spellingLabel;
+  $('contribute-spelling').placeholder = t().spellingPlaceholder;
 }
 
 // --- lookup + result ---

@@ -39,8 +39,9 @@ export function setupContribute({ getPhrase, getLang, isLocal, isRecorded, getPr
     $('contribute-msg').style.color = isError ? 'var(--rec)' : '';
   };
   const reviewing = (on) => {
-    $('review-actions').classList.toggle('hidden', !on);
+    $('contribute-review').classList.toggle('hidden', !on);
     $('rec-btn').classList.toggle('hidden', on);
+    $('contribute-spelling-label').classList.toggle('hidden', isLocal());
     $('consent-slot').replaceChildren();
     if (on && !isLocal()) {
       consent = consentField(getLang());
@@ -91,10 +92,12 @@ export function setupContribute({ getPhrase, getLang, isLocal, isRecorded, getPr
       if (isLocal()) {
         message = await saveLocally(phrase, lang, pending);
       } else {
-        await uploadSubmission({ phrase, lang, blob: pending, promptId: getPromptId(phrase) });
+        const spelling = $('contribute-spelling').value.trim();
+        await uploadSubmission({ phrase, lang, blob: pending, promptId: getPromptId(phrase), spelling });
         message = isRecorded(phrase) ? STRINGS[lang].savedReview : STRINGS[lang].savedLive;
       }
       pending = null;
+      $('contribute-spelling').value = '';
       reviewing(false);
       $('rec-btn').classList.add('hidden'); // one recording per search
       say(message);
