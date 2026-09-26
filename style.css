@@ -235,7 +235,6 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--focus); out
 }
 .header-link:hover { border-color: var(--muted); }
 .header-link svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
-.intro { color: var(--muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 4px; }
 .prompt-nepali { color: var(--muted); font-size: 1.15rem; margin-top: 6px; }
 .rec-main { background: var(--rec); color: #fff; }
 .rec-main.recording { animation: pulse 1.2s infinite ease-in-out; }
