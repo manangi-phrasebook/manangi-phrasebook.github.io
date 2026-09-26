@@ -141,7 +141,7 @@ const resetContribute = setupContribute({
   getLang: () => lang,
   isLocal: () => hasRecorder,
   isRecorded: (phrase) => hasRecording(phrases, phrase),
-  getPromptId: () => null, // dice (which tied a recording to a prompt) moved to help.html
+  getPromptId: () => null, // typed searches here are never tied to a prompt; that's help.html's job
   onSaved: () => { phrasesReady = loadPhrases(); }, // new recordings are playable at once
 });
 

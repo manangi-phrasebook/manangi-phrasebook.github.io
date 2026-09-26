@@ -115,22 +115,6 @@ $('skip-btn').onclick = () => {
   showCurrent();
 };
 
-// Dice: jump to a random still-open prompt instead of the next one in list order.
-$('dice-btn').onclick = () => {
-  const pool = remaining();
-  if (pool.length < 2) return; // nothing else to jump to
-  const [current] = pool;
-  const rest = pool.slice(1);
-  const target = rest[Math.floor(Math.random() * rest.length)];
-  queue = [target, current, ...rest.filter((p) => p !== target)];
-  take?.discard();
-  pending = null;
-  $('dice-btn').classList.remove('rolling');
-  void $('dice-btn').offsetWidth; // restart the roll animation
-  $('dice-btn').classList.add('rolling');
-  showCurrent();
-};
-
 async function load() {
   try {
     const res = await fetch('phrases.json', { cache: 'no-cache' });

@@ -249,33 +249,12 @@ button.quiet { background: transparent; color: var(--muted); border: 1px solid v
 #take-save { background: var(--primary); color: #fff; }
 #take-again { background: transparent; border: 1px solid var(--input-border); }
 
-/* 3D dice: on help.html, jumps to a random still-open prompt instead of the next one in the list */
-.label-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.dice {
-  position: relative;
-  width: 38px; height: 38px; padding: 3px; background: transparent; flex-shrink: 0;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
-}
-.dice svg { width: 100%; height: 100%; display: block; transition: transform 0.15s; }
-.dice:hover svg { transform: translateY(-2px) rotate(-8deg); } /* tilt the die, not its tooltip */
-.dice.rolling svg { animation: roll 0.6s ease-out; }
-@keyframes roll { from { transform: rotate(0) scale(0.9); } to { transform: rotate(720deg) scale(1); } }
-.dice::after {
-  content: attr(data-tip);
-  position: absolute; right: 0; top: calc(100% + 6px); /* right-aligned so it never overflows the card */
-  white-space: nowrap; font-size: 0.75rem; font-weight: 500; padding: 4px 8px; border-radius: 6px;
-  background: var(--input-bg); color: var(--text); border: 1px solid var(--input-border);
-  opacity: 0; pointer-events: none; transition: opacity 0.15s;
-}
-.dice:hover::after, .dice:focus-visible::after { opacity: 1; }
-
 footer { margin-top: 22px; color: var(--muted); font-size: 0.75rem; line-height: 1.5; }
 
 .hidden { display: none !important; }
 
 @media (prefers-reduced-motion: reduce) {
-  #result-section, #rec-btn.recording, .rec-main.recording, .dice.rolling svg { animation: none; }
-  .dice:hover svg { transform: none; }
+  #result-section, #rec-btn.recording, .rec-main.recording { animation: none; }
   button:active:not(:disabled) { transform: none; }
 }
 
