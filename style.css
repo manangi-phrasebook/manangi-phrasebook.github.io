@@ -53,12 +53,10 @@ a { color: inherit; }
   border: 1px solid var(--card-border);
   border-radius: 18px;
   width: 100%;
-  max-width: 460px;
+  max-width: 560px;
   padding: 28px;
   box-shadow: var(--shadow);
 }
-
-.toolbar { display: flex; justify-content: flex-end; margin-bottom: 10px; }
 
 header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; gap: 12px; }
 h1 { font-size: 1.5rem; font-weight: 700; }
@@ -85,7 +83,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 button:focus-visible, input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
 .header-actions { display: flex; align-items: center; }
-#theme-toggle { height: auto; padding: 8px 12px; border: 1px solid var(--input-border); }
+#theme-toggle { height: auto; padding: 8px 12px; border: 1px solid var(--input-border); margin-left: 12px; }
 
 .input-row { display: flex; gap: 8px; }
 #query {
@@ -251,32 +249,25 @@ button.quiet { background: transparent; color: var(--muted); border: 1px solid v
 #take-save { background: var(--primary); color: #fff; }
 #take-again { background: transparent; border: 1px solid var(--input-border); }
 
-/* 3D dice: left of the card on wide screens, start of the search row on phones */
-.card { position: relative; }
+/* 3D dice: on help.html, jumps to a random still-open prompt instead of the next one in the list */
+.label-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .dice {
-  width: 48px; height: 48px; padding: 4px; background: transparent; flex-shrink: 0;
+  position: relative;
+  width: 38px; height: 38px; padding: 3px; background: transparent; flex-shrink: 0;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
 }
-.dice svg { width: 100%; height: 100%; display: block; }
-.dice svg { transition: transform 0.15s; }
+.dice svg { width: 100%; height: 100%; display: block; transition: transform 0.15s; }
 .dice:hover svg { transform: translateY(-2px) rotate(-8deg); } /* tilt the die, not its tooltip */
 .dice.rolling svg { animation: roll 0.6s ease-out; }
 @keyframes roll { from { transform: rotate(0) scale(0.9); } to { transform: rotate(720deg) scale(1); } }
 .dice::after {
   content: attr(data-tip);
-  position: absolute; left: 50%; top: calc(100% + 6px); transform: translateX(-50%);
+  position: absolute; right: 0; top: calc(100% + 6px); /* right-aligned so it never overflows the card */
   white-space: nowrap; font-size: 0.75rem; font-weight: 500; padding: 4px 8px; border-radius: 6px;
   background: var(--input-bg); color: var(--text); border: 1px solid var(--input-border);
   opacity: 0; pointer-events: none; transition: opacity 0.15s;
 }
 .dice:hover::after, .dice:focus-visible::after { opacity: 1; }
-@media (min-width: 640px) {
-  .dice { position: absolute; left: -86px; top: 28px; width: 64px; height: 64px; }
-}
-@media (max-width: 639px) {
-  .dice { position: relative; }
-  .dice::after { left: 0; transform: none; } /* keep the tip on screen at the left edge */
-}
 
 footer { margin-top: 22px; color: var(--muted); font-size: 0.75rem; line-height: 1.5; }
 

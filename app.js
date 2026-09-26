@@ -1,4 +1,4 @@
-import { hasRecording, lookup, mergeSubmissions, openPrompts } from './match.js';
+import { hasRecording, lookup, mergeSubmissions } from './match.js';
 import { audioUrl, fetchSubmissions } from './supabase.js';
 import { detectLang, STRINGS } from './i18n.js';
 import { setupContribute } from './contribute.js';
@@ -14,7 +14,6 @@ let hasRecorder = false; // true when served by the local recorder (python serve
 let matches = [];
 let current = 0;
 let lastQuery = '';
-let dicePrompt = null; // the prompt the dice put in the box, so a recording of it keeps both meanings
 let lang = 'en'; // language of the last search, detected from what was typed
 const t = () => STRINGS[lang];
 const player = new Audio();
@@ -142,25 +141,12 @@ const resetContribute = setupContribute({
   getLang: () => lang,
   isLocal: () => hasRecorder,
   isRecorded: (phrase) => hasRecording(phrases, phrase),
-  getPromptId: (phrase) => (dicePrompt && [dicePrompt.english, dicePrompt.nepali].includes(phrase) ? dicePrompt.pid : null),
+  getPromptId: () => null, // dice (which tied a recording to a prompt) moved to help.html
   onSaved: () => { phrasesReady = loadPhrases(); }, // new recordings are playable at once
 });
 
 $('form').onsubmit = (e) => { e.preventDefault(); find($('query').value); };
 
-// Dice: a random phrase nobody has recorded yet (any prompt once all are done), ready to record.
-$('dice-btn').onclick = async () => {
-  await phrasesReady;
-  const open = openPrompts(prompts, [], phrases);
-  const pool = open.length ? open : prompts;
-  if (!pool.length) return;
-  dicePrompt = pool[Math.floor(Math.random() * pool.length)];
-  $('dice-btn').classList.remove('rolling');
-  void $('dice-btn').offsetWidth; // restart the roll animation
-  $('dice-btn').classList.add('rolling');
-  $('query').value = dicePrompt.english || dicePrompt.nepali;
-  find($('query').value);
-};
 $('listen-btn').onclick = listen;
 $('copy-btn').onclick = copy;
 

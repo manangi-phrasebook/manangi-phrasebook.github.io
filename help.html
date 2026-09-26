@@ -25,7 +25,27 @@
 
     <section id="prompt-card" class="hidden">
       <div class="result-panel">
-        <div class="label">Say this in Manangi · मनाङेमा भन्नुहोस्</div>
+        <div class="label-row">
+          <div class="label">Say this in Manangi · मनाङेमा भन्नुहोस्</div>
+          <button type="button" id="dice-btn" class="dice" data-tip="Jump to a random phrase"
+                  title="Jump to a random phrase" aria-label="Jump to a random phrase">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <g stroke="#2b2b22" stroke-width="2.5" stroke-linejoin="round">
+                <polygon points="50,8 90,30 50,52 10,30" fill="#fbf7ee" />
+                <polygon points="10,30 50,52 50,95 10,72" fill="#e2d9c5" />
+                <polygon points="90,30 50,52 50,95 90,72" fill="#c9bea6" />
+              </g>
+              <g fill="#2b2b22">
+                <ellipse cx="50" cy="30" rx="7" ry="4" />
+                <ellipse cx="22" cy="49.5" rx="4.5" ry="5.5" transform="rotate(-25 22 49.5)" />
+                <ellipse cx="38" cy="75.5" rx="4.5" ry="5.5" transform="rotate(-25 38 75.5)" />
+                <ellipse cx="60" cy="57" rx="4.5" ry="5.5" transform="rotate(25 60 57)" />
+                <ellipse cx="70" cy="62.5" rx="4.5" ry="5.5" transform="rotate(25 70 62.5)" />
+                <ellipse cx="80" cy="68" rx="4.5" ry="5.5" transform="rotate(25 80 68)" />
+              </g>
+            </svg>
+          </button>
+        </div>
         <div id="prompt-english" class="say"></div>
         <div id="prompt-nepali" class="prompt-nepali"></div>
       </div>
