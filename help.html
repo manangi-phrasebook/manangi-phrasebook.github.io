@@ -10,49 +10,52 @@
 </head>
 <body>
   <main class="card">
+    <div class="lang-toggle" id="lang-toggle" role="group" aria-label="Page language">
+      <button type="button" data-lang="en">English</button>
+      <button type="button" data-lang="ne">नेपाली</button>
+    </div>
+
     <header>
       <div class="header-text">
-        <h1>Help record Manangi</h1>
-        <p class="subtitle">मनाङे भाषा रेकर्ड गर्न सहयोग गर्नुहोस्</p>
+        <h1 id="help-title">Help record Manangi</h1>
       </div>
-      <a class="header-link" href="./">← Phrasebook</a>
+      <a class="header-link" href="./" id="back-link">← Phrasebook</a>
     </header>
 
     <p id="progress" class="status">Loading…</p>
 
     <section id="prompt-card" class="hidden">
       <div class="result-panel">
-        <div class="label">Say this in Manangi · मनाङेमा भन्नुहोस्</div>
-        <div id="prompt-english" class="say"></div>
-        <div id="prompt-nepali" class="prompt-nepali"></div>
+        <div class="label" id="say-label">Say this in Manangi</div>
+        <div id="prompt-text" class="say"></div>
       </div>
 
       <div class="actions">
-        <button id="take-btn" class="rec-main">🎙 Record · रेकर्ड</button>
+        <button id="take-btn" class="rec-main">🎙 Record</button>
       </div>
       <div id="take-review" class="hidden">
         <div id="help-consent-slot"></div>
         <div class="actions">
-          <button id="take-save">✓ Save · सेभ</button>
-          <button id="take-again">↺ Again · फेरि</button>
+          <button id="take-save">✓ Save</button>
+          <button id="take-again">↺ Again</button>
         </div>
       </div>
       <p id="take-msg" class="hint"></p>
       <div class="actions">
-        <button id="skip-btn" class="quiet">Skip — I don't know this one · थाहा छैन</button>
+        <button id="skip-btn" class="quiet">Skip — I don't know this one</button>
       </div>
 
-      <label class="speaker">Your name or initials (optional, kept private) · तपाईंको नाम (ऐच्छिक)
+      <label class="speaker" id="speaker-label">Your name or initials (optional, kept private)
         <input id="speaker" maxlength="60" autocomplete="name" />
       </label>
     </section>
 
     <section id="done-card" class="hidden">
-      <p class="done">🙏 Every phrase on the list has a voice now. Thank you!<br />सबै वाक्य रेकर्ड भइसके। धन्यवाद!</p>
+      <p class="done" id="done-msg"></p>
     </section>
 
     <section id="local-card" class="hidden">
-      <p class="done">You're on the local recorder — use <a href="/?mode=prompts">Say prompts</a> there instead.</p>
+      <p class="done" id="local-msg"></p>
     </section>
   </main>
 
