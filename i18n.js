@@ -1,0 +1,66 @@
+// Two input languages, detected from the text itself: whatever someone types is the language
+// they get answers in. No switch to find or set.
+
+const DEVANAGARI = /[\u0900-\u097F]/; // Devanagari block
+
+/** @param {string} text @returns {'en' | 'ne'} */
+export function detectLang(text) {
+  return DEVANAGARI.test(text) ? 'ne' : 'en';
+}
+
+export const STRINGS = {
+  en: {
+    sayIt: 'Say it',
+    means: 'Means:',
+    listen: '🔊 Listen',
+    copy: 'Copy',
+    notYet: 'Not in the phrasebook yet.',
+    closest: 'Closest known phrase:',
+    knowHow: (p) => `Know how to say “${p}” in Manangi? Record it.`,
+    record: '🎙 Record it',
+    stop: '⏹ Stop',
+    save: '✓ Save',
+    discard: '✗ Discard',
+    recording: 'Recording… say it once, then Stop.',
+    playingBack: '▶ Playing it back. Save to keep, Discard to try again.',
+    discarded: 'Discarded. Record again when ready.',
+    saving: 'Saving…',
+    notSaved: (e) => `Not saved: ${e}`,
+    micBlocked: 'Microphone access was blocked.',
+    savedLocal: 'Saved — it plays in the phrasebook now. Write it down later in the recorder (Say prompts).',
+    savedLive: 'Saved — thank you! It is in the phrasebook now.',
+    savedReview: 'Thank you! This phrase already has a recording, so yours will appear once approved.',
+    unwritten: '(listen — not written down yet)',
+    noRecording: 'No recording of this phrase yet.',
+    visitorRecording: 'Recorded by a visitor — not checked yet.',
+    consent: 'I agree my recording can be shared publicly and used to build Manangi language tools, including training AI.',
+    consentNeeded: 'Please tick the box above to agree before saving.',
+  },
+  ne: {
+    sayIt: 'यसरी भन्नुहोस्',
+    means: 'अर्थ:',
+    listen: '🔊 सुन्नुहोस्',
+    copy: 'कपी',
+    notYet: 'यो वाक्य अझै संग्रहमा छैन।',
+    closest: 'सबैभन्दा मिल्दो वाक्य:',
+    knowHow: (p) => `“${p}” मनाङे भाषामा कसरी भनिन्छ थाहा छ? रेकर्ड गर्नुहोस्।`,
+    record: '🎙 रेकर्ड गर्नुहोस्',
+    stop: '⏹ रोक्नुहोस्',
+    save: '✓ सेभ गर्नुहोस्',
+    discard: '✗ हटाउनुहोस्',
+    recording: 'रेकर्ड हुँदैछ… एक पटक भन्नुहोस्, अनि रोक्नुहोस्।',
+    playingBack: '▶ फेरि सुनाउँदैछ। राख्न सेभ, फेरि प्रयास गर्न हटाउनुहोस्।',
+    discarded: 'हटाइयो। तयार हुँदा फेरि रेकर्ड गर्नुहोस्।',
+    saving: 'सेभ हुँदैछ…',
+    notSaved: (e) => `सेभ भएन: ${e}`,
+    micBlocked: 'माइक्रोफोन अनुमति रोकिएको छ।',
+    savedLocal: 'सेभ भयो — अब संग्रहमा बज्छ। पछि रेकर्डरमा लेख्नुहोस्।',
+    savedLive: 'सेभ भयो — धन्यवाद! अब संग्रहमा छ।',
+    savedReview: 'धन्यवाद! यो वाक्यको रेकर्डिङ पहिले नै छ, त्यसैले तपाईंको स्वीकृत भएपछि देखिनेछ।',
+    unwritten: '(सुन्नुहोस् — अझै लेखिएको छैन)',
+    noRecording: 'यो वाक्यको रेकर्डिङ अझै छैन।',
+    visitorRecording: 'आगन्तुकले रेकर्ड गरेको — अझै जाँच भएको छैन।',
+    consent: 'मेरो रेकर्डिङ सार्वजनिक रूपमा राख्न र AI तालिम सहित मनाङे भाषाका साधन बनाउन प्रयोग गर्न म सहमत छु।',
+    consentNeeded: 'सेभ गर्नुअघि माथिको बाकसमा टिक लगाउनुहोस्।',
+  },
+};

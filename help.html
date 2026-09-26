@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help Record Manangi</title>
+  <meta name="description" content="Say everyday phrases in Manangi to help build the phrasebook." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏔</text></svg>" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="card">
+    <header>
+      <div class="header-text">
+        <h1>Help record Manangi</h1>
+        <p class="subtitle">मनाङे भाषा रेकर्ड गर्न सहयोग गर्नुहोस्</p>
+      </div>
+      <a class="header-link" href="./">← Phrasebook</a>
+    </header>
+
+    <p class="intro">Read the phrase, then say it the natural Manangi way — not word for word.<br />
+      वाक्य पढ्नुहोस्, अनि मनाङे भाषामा स्वाभाविक रूपमा भन्नुहोस्।</p>
+
+    <p id="progress" class="status">Loading…</p>
+
+    <section id="prompt-card" class="hidden">
+      <div class="result-panel">
+        <div class="label">Say this in Manangi · मनाङेमा भन्नुहोस्</div>
+        <div id="prompt-english" class="say"></div>
+        <div id="prompt-nepali" class="prompt-nepali"></div>
+      </div>
+
+      <div class="actions">
+        <button id="take-btn" class="rec-main">🎙 Record · रेकर्ड</button>
+      </div>
+      <div id="take-review" class="hidden">
+        <div id="help-consent-slot"></div>
+        <div class="actions">
+          <button id="take-save">✓ Save · सेभ</button>
+          <button id="take-again">↺ Again · फेरि</button>
+        </div>
+      </div>
+      <p id="take-msg" class="hint"></p>
+      <div class="actions">
+        <button id="skip-btn" class="quiet">Skip — I don't know this one · थाहा छैन</button>
+      </div>
+
+      <label class="speaker">Your name or initials (optional, kept private) · तपाईंको नाम (ऐच्छिक)
+        <input id="speaker" maxlength="60" autocomplete="name" />
+      </label>
+    </section>
+
+    <section id="done-card" class="hidden">
+      <p class="done">🙏 Every phrase on the list has a voice now. Thank you!<br />सबै वाक्य रेकर्ड भइसके। धन्यवाद!</p>
+    </section>
+
+    <section id="local-card" class="hidden">
+      <p class="done">You're on the local recorder — use <a href="/?mode=prompts">Say prompts</a> there instead.</p>
+    </section>
+  </main>
+
+  <script type="module" src="./help.js"></script>
+</body>
+</html>

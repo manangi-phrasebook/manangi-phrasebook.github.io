@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manangi Phrasebook</title>
+  <meta name="description" content="English or Nepali to Manangi (Nyeshangte), with real recorded voices." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏔</text></svg>" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="card">
+    <header>
+      <div class="header-text">
+        <h1>Manangi Phrasebook</h1>
+        <p class="subtitle">English / नेपाली → Manangi, with real voices</p>
+      </div>
+      <div class="header-actions">
+        <a class="header-link" href="./help.html">Help record</a>
+        <button id="theme-toggle" title="Toggle dark/light mode" aria-label="Toggle dark/light mode">☀️</button>
+      </div>
+    </header>
+
+    <form class="input-row" id="form">
+      <button type="button" id="dice-btn" class="dice" data-tip="Produce random phrase"
+              title="Produce random phrase" aria-label="Produce random phrase">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <g stroke="#2b2b22" stroke-width="2.5" stroke-linejoin="round">
+            <polygon points="50,8 90,30 50,52 10,30" fill="#fbf7ee" />
+            <polygon points="10,30 50,52 50,95 10,72" fill="#e2d9c5" />
+            <polygon points="90,30 50,52 50,95 90,72" fill="#c9bea6" />
+          </g>
+          <g fill="#2b2b22">
+            <ellipse cx="50" cy="30" rx="7" ry="4" />
+            <ellipse cx="22" cy="49.5" rx="4.5" ry="5.5" transform="rotate(-25 22 49.5)" />
+            <ellipse cx="38" cy="75.5" rx="4.5" ry="5.5" transform="rotate(-25 38 75.5)" />
+            <ellipse cx="60" cy="57" rx="4.5" ry="5.5" transform="rotate(25 60 57)" />
+            <ellipse cx="70" cy="62.5" rx="4.5" ry="5.5" transform="rotate(25 70 62.5)" />
+            <ellipse cx="80" cy="68" rx="4.5" ry="5.5" transform="rotate(25 80 68)" />
+          </g>
+        </svg>
+      </button>
+      <input id="query" type="text" placeholder="Type in English or नेपाली" autocomplete="off" aria-label="Phrase" />
+      <button type="submit" id="find-btn">Find</button>
+    </form>
+
+    <p id="status-msg" class="status"></p>
+
+    <section id="result-section" class="hidden">
+      <div id="weak-match" class="hidden">
+        <p class="weak" id="not-yet"></p>
+        <div id="contribute" class="contribute hidden">
+          <p id="contribute-text"></p>
+          <div class="actions">
+            <button id="rec-btn"></button>
+          </div>
+          <div id="consent-slot"></div>
+          <div class="actions hidden" id="review-actions">
+            <button id="save-btn"></button>
+            <button id="discard-btn"></button>
+          </div>
+          <p id="contribute-msg" class="hint"></p>
+        </div>
+        <p class="weak-sub" id="closest"></p>
+      </div>
+      <div class="result-panel">
+        <button id="copy-btn"></button>
+        <div class="label" id="say-label"></div>
+        <div id="say" class="say"></div>
+        <div id="ipa" class="ipa"></div>
+      </div>
+      <p class="meaning"><b id="means-label"></b> <span id="meaning"></span></p>
+      <div class="actions">
+        <button id="listen-btn"></button>
+      </div>
+      <p id="audio-note" class="hint"></p>
+      <div id="others" class="others"></div>
+    </section>
+
+    <footer>Not a translator: it finds the closest phrase that real Manangi speakers have said.</footer>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
