@@ -222,7 +222,16 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--focus); out
 .owner-msg { color: var(--muted); font-size: 0.8rem; }
 
 /* Help-record page */
-.header-link { color: var(--muted); font-size: 0.85rem; white-space: nowrap; margin-left: 12px; }
+.header-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text); font-size: 0.85rem; font-weight: 700; white-space: nowrap;
+  text-decoration: none;
+  margin-left: 12px; padding: 7px 14px; border-radius: 999px;
+  border: 1px solid var(--card-border); background: var(--input-bg);
+  transition: background 0.2s, border-color 0.2s;
+}
+.header-link:hover { border-color: var(--muted); }
+.header-link svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
 .intro { color: var(--muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 4px; }
 .prompt-nepali { color: var(--muted); font-size: 1.15rem; margin-top: 6px; }
 .rec-main { background: var(--rec); color: #fff; }
