@@ -60,6 +60,8 @@ function applyLangUI() {
   $('take-again').textContent = t().again;
   $('skip-btn').textContent = t().skipBtn;
   $('speaker-label').firstChild.textContent = t().speakerLabel;
+  $('spelling-label').firstChild.textContent = t().spellingLabel;
+  $('spelling').placeholder = t().spellingPlaceholder;
   $('done-msg').textContent = t().done;
   $('local-msg').replaceChildren(
     `${t().localRecorder} `,
@@ -129,16 +131,18 @@ async function save() {
   if (!pending || !prompt) return;
   if (!consent.accepted()) return say(t().consentNeeded, true);
   const speaker = $('speaker').value.trim();
+  const spelling = $('spelling').value.trim();
   rememberSpeaker(speaker);
   $('take-save').disabled = true;
   say(t().saving);
   try {
     await uploadSubmission({
       phrase: prompt.english || prompt.nepali, lang: prompt.english ? 'en' : 'ne',
-      blob: pending, promptId: prompt.pid, speaker,
+      blob: pending, promptId: prompt.pid, speaker, spelling,
     });
     queue = queue.filter((p) => p.pid !== prompt.pid);
     pending = null;
+    $('spelling').value = '';
     showCurrent();
     say(t().savedNext);
   } catch (err) {

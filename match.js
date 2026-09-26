@@ -86,7 +86,7 @@ export function mergeSubmissions(phrases, submissions, audioUrl, prompts = []) {
   const added = [...shownByPhrase(phrases, submissions).values()].map((s) => {
     const prompt = promptById.get(s.prompt_id); // prompt-list recordings know both meanings
     return {
-      text: '', spelling: '',
+      text: '', spelling: s.spelling || '',
       english: prompt ? prompt.english : s.lang === 'en' ? s.phrase : '',
       nepali: prompt ? prompt.nepali : s.lang === 'ne' ? s.phrase : '',
       audio: audioUrl(s.audio_path), source: 'visitor', clip: s.audio_path,
