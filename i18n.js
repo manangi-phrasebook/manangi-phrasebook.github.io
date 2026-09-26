@@ -32,7 +32,9 @@ export const STRINGS = {
     savedReview: 'Thank you! Yours replaces the current recording of this phrase now.',
     unwritten: '(listen — not written down yet)',
     noRecording: 'No recording of this phrase yet.',
-    visitorRecording: 'Recorded by a visitor — not checked yet.',
+    visitorRecording: 'Recorded by a visitor — if it’s wrong, re-record it below.',
+    reRecordBtn: '↺ Re-record',
+    reRecordPrompt: (p) => `Record “${p}” again`,
     consent: 'I agree my recording can be shared publicly and used to build Manangi language tools, including training AI.',
     consentNeeded: 'Please tick the box above to agree before saving.',
     // Help-record page (single-language once the toggle is set)
@@ -79,7 +81,9 @@ export const STRINGS = {
     savedReview: 'धन्यवाद! अब यो वाक्यको हालको रेकर्डिङको ठाउँमा तपाईंको रेकर्डिङ बज्छ।',
     unwritten: '(सुन्नुहोस् — अझै लेखिएको छैन)',
     noRecording: 'यो वाक्यको रेकर्डिङ अझै छैन।',
-    visitorRecording: 'आगन्तुकले रेकर्ड गरेको — अझै जाँच भएको छैन।',
+    visitorRecording: 'आगन्तुकले रेकर्ड गरेको — गलत भए तल फेरि रेकर्ड गर्नुहोस्।',
+    reRecordBtn: '↺ फेरि रेकर्ड गर्नुहोस्',
+    reRecordPrompt: (p) => `“${p}” फेरि भन्नुहोस्`,
     consent: 'मेरो रेकर्डिङ सार्वजनिक रूपमा राख्न र AI तालिम सहित मनाङे भाषाका साधन बनाउन प्रयोग गर्न म सहमत छु।',
     consentNeeded: 'सेभ गर्नुअघि माथिको बाकसमा टिक लगाउनुहोस्।',
     // Help-record page (single-language once the toggle is set)

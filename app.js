@@ -3,6 +3,7 @@ import { audioUrl, fetchSubmissions } from './supabase.js';
 import { detectLang, STRINGS } from './i18n.js';
 import { setupContribute } from './contribute.js';
 import { setupAdmin } from './admin.js';
+import { canRecord } from './recorder.js';
 
 const $ = (id) => document.getElementById(id);
 const ARCHIVE_CREDIT = 'Archive recording · Manang Languages Project (K. Hildebrandt), CC BY-NC-SA';
@@ -14,6 +15,7 @@ let hasRecorder = false; // true when served by the local recorder (python serve
 let matches = [];
 let current = 0;
 let lastQuery = '';
+let recordTarget = null; // set while re-recording an existing visitor take; overrides lastQuery
 let lang = 'en'; // language of the last search, detected from what was typed
 const t = () => STRINGS[lang];
 const player = new Audio();
@@ -45,6 +47,7 @@ function applyLabels() {
   $('copy-btn').textContent = t().copy;
   $('not-yet').textContent = t().notYet;
   $('closest').textContent = t().closest;
+  $('re-record-btn').textContent = t().reRecordBtn;
 }
 
 // --- lookup + result ---
@@ -62,6 +65,9 @@ async function find(query) {
   setStatus('');
   // "not there" means this exact phrase has no recording, even if something similar scores high
   // ("how are you" vs "How old are you?"): offer to record it and still show the closest match
+  recordTarget = null;
+  $('not-yet').classList.remove('hidden');
+  $('closest').classList.remove('hidden');
   const isMissing = !hasRecording(phrases, query);
   $('weak-match').classList.toggle('hidden', !isMissing);
   if (isMissing) {
@@ -98,7 +104,19 @@ function show(i) {
     link.textContent = ' Open recorder →';
     $('audio-note').appendChild(link);
   }
+  $('re-record-btn').classList.toggle('hidden', m.source !== 'visitor' || !canRecord());
   renderOthers(i);
+}
+
+// Offers the same record/review/save flow as a missing phrase, but targets an existing visitor
+// take (by its own meaning, not whatever was typed) so saving it replaces that take.
+function startReRecord(m) {
+  const phrase = meaningOf(m);
+  recordTarget = phrase;
+  $('not-yet').classList.add('hidden');
+  $('closest').classList.add('hidden');
+  $('weak-match').classList.remove('hidden');
+  resetContribute(phrase, t().reRecordPrompt(phrase));
 }
 
 function renderOthers(shownIndex) {
@@ -137,18 +155,19 @@ async function copy() {
 }
 
 const resetContribute = setupContribute({
-  getPhrase: () => lastQuery,
+  getPhrase: () => recordTarget || lastQuery,
   getLang: () => lang,
   isLocal: () => hasRecorder,
   isRecorded: (phrase) => hasRecording(phrases, phrase),
   getPromptId: () => null, // typed searches here are never tied to a prompt; that's help.html's job
-  onSaved: () => { phrasesReady = loadPhrases(); }, // new recordings are playable at once
+  onSaved: () => { recordTarget = null; phrasesReady = loadPhrases(); }, // new recordings are playable at once
 });
 
 $('form').onsubmit = (e) => { e.preventDefault(); find($('query').value); };
 
 $('listen-btn').onclick = listen;
 $('copy-btn').onclick = copy;
+$('re-record-btn').onclick = () => startReRecord(matches[current]);
 
 // --- data ---
 // The public site adds visitor recordings from Supabase; if Supabase is unreachable the phrasebook still works.

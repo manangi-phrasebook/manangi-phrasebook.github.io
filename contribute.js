@@ -106,8 +106,8 @@ export function setupContribute({ getPhrase, getLang, isLocal, isRecorded, getPr
     }
   };
 
-  // called for each new weak-match search
-  return function reset(phrase) {
+  // called for each new weak-match search, or to start a re-record of an existing visitor take
+  return function reset(phrase, promptText) {
     take?.discard(); // a new search mid-recording: throw the take away, never file it under the new phrase
     pending = null;
     reviewing(false);
@@ -115,7 +115,7 @@ export function setupContribute({ getPhrase, getLang, isLocal, isRecorded, getPr
     $('rec-btn').classList.remove('hidden');
     $('save-btn').textContent = t().save;
     $('discard-btn').textContent = t().discard;
-    $('contribute-text').textContent = t().knowHow(phrase);
+    $('contribute-text').textContent = promptText || t().knowHow(phrase);
     $('contribute').classList.toggle('hidden', !canRecord());
     say('');
   };
