@@ -111,7 +111,7 @@ function renderOthers(shownIndex) {
     pct.className = 'score';
     pct.textContent = `${Math.round(m.score * 100)}%`;
     btn.append(label, pct);
-    btn.onclick = () => { show(j); listen(); };
+    btn.onclick = () => { show(j); listen(); $('query').value = meaningOf(m); };
     return [btn];
   }));
 }
