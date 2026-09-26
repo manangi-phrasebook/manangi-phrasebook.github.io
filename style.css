@@ -53,10 +53,12 @@ a { color: inherit; }
   border: 1px solid var(--card-border);
   border-radius: 18px;
   width: 100%;
-  max-width: 560px;
+  max-width: 460px;
   padding: 28px;
   box-shadow: var(--shadow);
 }
+
+.toolbar { display: flex; justify-content: flex-end; margin-bottom: 10px; }
 
 header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; gap: 12px; }
 h1 { font-size: 1.5rem; font-weight: 700; }
@@ -83,7 +85,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 button:focus-visible, input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
 .header-actions { display: flex; align-items: center; }
-#theme-toggle { height: auto; padding: 8px 12px; border: 1px solid var(--input-border); margin-left: 12px; }
+#theme-toggle { height: auto; padding: 8px 12px; border: 1px solid var(--input-border); }
 
 .input-row { display: flex; gap: 8px; }
 #query {
