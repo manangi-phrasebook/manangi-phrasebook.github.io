@@ -1,6 +1,5 @@
 // Contributor page: walks through prompts nobody has recorded yet, so 30 people cover 30 different
-// phrases instead of all saying "hello". Each save goes to Supabase with the prompt id (and the optional,
-// private speaker name, which a voice model later needs to tell speakers apart).
+// phrases instead of all saying "hello". Each save goes to Supabase with the prompt id.
 // The whole page reads in one language at a time (toggle at the top); a prompt with no translation in
 // the chosen language falls back to whichever it has.
 
@@ -11,7 +10,6 @@ import { fetchSubmissions, uploadSubmission } from './supabase.js';
 import { STRINGS } from './i18n.js';
 
 const $ = (id) => document.getElementById(id);
-const SPEAKER_KEY = 'manangi-speaker';
 const LANG_KEY = 'manangi-help-lang';
 const player = new Audio();
 
@@ -37,13 +35,6 @@ const say = (msg, isError = false) => {
   $('take-msg').style.color = isError ? 'var(--rec)' : '';
 };
 
-function storedSpeaker() {
-  try { return localStorage.getItem(SPEAKER_KEY) || ''; } catch { return ''; }
-}
-function rememberSpeaker(name) {
-  try { localStorage.setItem(SPEAKER_KEY, name); } catch { /* typed again next visit */ }
-}
-
 const remaining = () => queue.filter((p) => !skipped.has(p.pid));
 
 // The phrase in the chosen language, or whichever it has (many glossary-word prompts are English-only).
@@ -59,7 +50,6 @@ function applyLangUI() {
   $('take-save').textContent = t().save;
   $('take-again').textContent = t().again;
   $('skip-btn').textContent = t().skipBtn;
-  $('speaker-label').firstChild.textContent = t().speakerLabel;
   $('spelling-label').firstChild.textContent = t().spellingLabel;
   $('spelling').placeholder = t().spellingPlaceholder;
   $('done-msg').textContent = t().done;
@@ -130,15 +120,13 @@ async function save() {
   const prompt = remaining()[0];
   if (!pending || !prompt) return;
   if (!consent.accepted()) return say(t().consentNeeded, true);
-  const speaker = $('speaker').value.trim();
   const spelling = $('spelling').value.trim();
-  rememberSpeaker(speaker);
   $('take-save').disabled = true;
   say(t().saving);
   try {
     await uploadSubmission({
       phrase: prompt.english || prompt.nepali, lang: prompt.english ? 'en' : 'ne',
-      blob: pending, promptId: prompt.pid, speaker, spelling,
+      blob: pending, promptId: prompt.pid, spelling,
     });
     queue = queue.filter((p) => p.pid !== prompt.pid);
     pending = null;
@@ -180,7 +168,6 @@ async function load() {
     }
     totalPrompts = (data.prompts || []).length;
     queue = openPrompts(data.prompts || [], await fetchSubmissions(), data.phrases);
-    $('speaker').value = storedSpeaker();
     showCurrent();
   } catch (err) {
     $('progress').textContent = t().couldNotLoad(err.message);
